@@ -13,7 +13,7 @@
     <!--<link rel="icon" type="image/png" href="<?php echo get_template_directory_uri();?>/img/interwebsite.jpg" sizes="200x200">
   -->  <title><?php bloginfo('title');?></title>
    <?php wp_head();?>
-    <body>
+    <body <?php body_class();?> >
       <header class="header py-5">
     <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -29,9 +29,9 @@
                         </button>
                         <?php
                               $args = array(
-                                   'menu_class' => 'nav nav-justified flex-column flex-md-row text-center  justify-content-lg-end',
+                                   'menu_class' => 'nav kervis-menu nav-justified flex-column flex-md-row text-center  ',
                                    'container_id' => 'nav_principal',
-                                   'container_class' => 'collapse navbar-collapse justify-content-center  justify-content-lg-end text-uppercase',
+                                   'container_class' => 'collapse   navbar-collapse justify-content-center  justify-content-lg-end text-uppercase',
                                    'theme_location' => 'menu_principal'
                               );
                               wp_nav_menu($args);
