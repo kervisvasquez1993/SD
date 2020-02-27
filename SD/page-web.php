@@ -1,4 +1,5 @@
-    <div class="container">
+<?php get_header(); ?>
+<div class="container">
         <div class="row imagen-destacada clase-bg"></div>
     </div>
 
@@ -51,3 +52,5 @@
 
 
 
+º
+<?php get_footer();?>

@@ -1,29 +1,30 @@
 <?php get_header();?>
+<?php while(have_posts()): the_post();
+
+?>
+
+
+ 
 <div class="container-fluid imagenes-principales">
     <div class="row imagen-superior imagen">
         <div class="col-md-6 bg-primary">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-sm-8 col-md-6">
                     <div class="contenido text-center text-light py-3">
-                        <h2 class="text-uppercase">20 Años de Experiencia</h2>
-                        <p>Nos respaldan, siempre ofertando los mejores cursos para principiantes y expertos</p>
+                         <?php echo get_post_meta(get_the_ID(), 'texto_superior_1', true ); ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 bg-vino"></div>
+        <div class="col-md-6" style=" background: url(<?php echo get_post_meta(get_the_ID(), 'image1_home', true );?> );"></div>
     </div>
     <div class="row imagen-inferior imagen">
-        <div class="col-md-6 bg-comida"></div>
+        <div class="col-md-6" style=" background: url(<?php echo get_post_meta(get_the_ID(), 'image2_home', true );?> );"></div>
         <div class="col-md-6 bg-secondary">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-sm-8 col-md-6">
                     <div class="contenido text-center py-3">
-                        <h2 class="text-uppercase">Sobre Nosotros</h2>
-
-                        <p> Donec dignissim tincidunt fermentum. Aenean hendrerit auctor vestibulum. </p>
-
-                        <p> Donec venenatis turpis at convallis sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                    <?php echo get_post_meta(get_the_ID(), 'texto_superior_2', true ); ?>
                     </div>
                 </div>
             </div>
@@ -31,27 +32,16 @@
     </div>
 </div><!--.container-fluid-->
 
+
 <div class="container">
-    <section class="nosotros mt-5">
-        <h2 class="separador text-center mb-5">¿Porqué estudiar con nosotros?</h2>
-        <div class="row">
-            <div class="col-md-4 text-center informacion">
-                <img src="img/icono_chef.png" class="img-fluid mb-3" >
-                <h3>Chef’s Especialistas</h3>
-                <p>Los mejores chef’s que han trabajado en los mejores restaurants de Europa</p>
-            </div>
-            <div class="col-md-4 text-center informacion">
-                <img src="img/icono_vino.png" class="img-fluid mb-3" >
-                <h3>Incluye todo sobre Bebidas</h3>
-                <p>Además de la cocina, incluimos en el programa todo lo relacionado  a bebidas.</p>
-            </div>
-            <div class="col-md-4 text-center informacion">
-                <img src="img/icono_menu.png" class="img-fluid mb-3" >
-                <h3>Siempre Actualizado</h3>
-                <p>El Programa se actualiza constamemente con nuevos platillos y técnicas.</p>
-            </div>
-        </div>
-    </section>
+    <?php 
+        $nosotros = new WP_Query('pagename=nosotros');
+        while($nosotros->have_posts()): $nosotros->the_post();
+         get_template_part('template', 'parts/iconos');
+   
+
+endwhile; wp_reset_postdata();
+    ?>
 </div> <!--.container-->
 
     <section class="clases mt-5 py-5">
@@ -165,21 +155,28 @@
             </div>
     </section>
 
-    <div class="licenciatura">
+   
+  
+
+
+
+    <div class="licenciatura" style="background: url(<?php echo get_post_meta(get_the_ID(), 'imagen_nosotros_home', true );?>">
          <div class="container">
              <div class="row align-items-center justify-content-center">
                  <div class="col-md-8 ">
                          <div class="contenido text-light text-center ">
-                              <h2>¿Quieres ser Chef?</h2>
-                              <p class="display-4">
-                                  Estudia la licenciatura para convertirte en
-                                  Chef con nosotros
-                              </p>
-                              <a href="#" class="btn-primary btn text-uppercase">Más información</a>
+                         <?php echo get_post_meta(get_the_ID(), 'texto_nosotros', true ); ?>
+                            <?php $contacto = get_page_by_title('Contacto');
+                              
+
+                                
+                            ?>
+                              <a href="<?php echo get_the_permalink($contacto->ID);?>" class="btn-primary btn text-uppercase">Más información</a>
                          </div>
                  </div>
              </div>
          </div>
     </div>
 
+<?php endwhile;?>
 <?php get_footer();?>

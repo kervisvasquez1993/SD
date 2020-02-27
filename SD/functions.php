@@ -1,9 +1,54 @@
 <?php 
 
 
-require_once dirname( __FILE__ ).'/cmb2.php';
 
+require_once dirname( __FILE__ ).'/cmb2.php';
+require_once dirname( __FILE__ ).'/inc/custom-fields.php';
+require_once dirname( __FILE__ ).'/inc/posttype.php';
+
+/**
+ * imagenes descatacas para calquiera
+ * 
+ */
+
+ //pasando imagen de php a css 
+ add_action( 'init', 'sd_imagen_destacada' );
+function sd_imagen_destacada($id){
+    $imagen = get_the_post_thumbnail_url( $id, 'full');
+    $html = '';
+    $class = false;
+   
+    if($imagen){
+        $class = true;
+       $html.='<div class="container">';
+       $html.=  '<div class="row imagen-destacada"></div>';
+       $html.='</div>';
+      
+       // agregamos los stylos lineal
+        wp_register_style('custom', false);
+        wp_enqueue_style( 'custom' );
+
+
+        $imagen_destacada_css = "
+           .imagen-destacada
+            {
+              background:url({$imagen});
+            }";
+            wp_add_inline_style( 'custom', $imagen_destacada_css );
+    }
+    return array($html,$class);
+}
+
+
+ //fin del codigo //
 function sd_setup(){
+    //definimos los tamaños de las imagenes
+
+    add_image_size( 'mediano', 510, 340, true );
+    
+
+    add_theme_support( 'post-thumbnails');
+
     register_nav_menus( array(
     'menu_principal' => esc_html__('MenuPrincipal','sd-digital')
     )

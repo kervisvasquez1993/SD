@@ -14,12 +14,17 @@
 /**
  * Get the bootstrap! If using the plugin from wordpress.org, REMOVE THIS!
  */
-echo 'hola';
-if ( file_exists( dirname( __FILE__ ) . '/cmb2/init.php' ) ) {
+
+if ( file_exists( dirname( __FILE__ ) . '/cmb2/init.php' ) ) 
+{
+	
 	require_once dirname( __FILE__ ) . '/cmb2/init.php';
-} elseif ( file_exists( dirname( __FILE__ ) . '/CMB2/init.php' ) ) {
-	require_once dirname( __FILE__ ) . '/CMB2/init.php';
+
 }
+ elseif ( file_exists( dirname( __FILE__ ) . '/CMB2/init.php' ) ) 
+ {
+	require_once dirname( __FILE__ ) . '/CMB2/init.php';
+ }
 
 /**
  * Conditionally displays a metabox when used as a callback in the 'show_on_cb' cmb2_box parameter
@@ -28,7 +33,8 @@ if ( file_exists( dirname( __FILE__ ) . '/cmb2/init.php' ) ) {
  *
  * @return bool      True if metabox should show
  */
-function yourprefix_show_if_front_page( $cmb ) {
+function yourprefix_show_if_front_page( $cmb ) 
+{
 	// Don't show this metabox if it's not the front page template.
 	if ( get_option( 'page_on_front' ) !== $cmb->object_id ) {
 		return false;
@@ -43,7 +49,8 @@ function yourprefix_show_if_front_page( $cmb ) {
  *
  * @return bool              True if metabox should show
  */
-function yourprefix_hide_if_no_cats( $field ) {
+function yourprefix_hide_if_no_cats( $field ) 
+{
 	// Don't show this field if not in the cats category.
 	if ( ! has_tag( 'cats', $field->object_id ) ) {
 		return false;
@@ -57,7 +64,8 @@ function yourprefix_hide_if_no_cats( $field ) {
  * @param  array      $field_args Array of field arguments.
  * @param  CMB2_Field $field      The field object.
  */
-function yourprefix_render_row_cb( $field_args, $field ) {
+function yourprefix_render_row_cb( $field_args, $field )
+ {
 	$classes     = $field->row_classes();
 	$id          = $field->args( 'id' );
 	$label       = $field->args( 'name' );
@@ -79,7 +87,8 @@ function yourprefix_render_row_cb( $field_args, $field ) {
  * @param  array      $field_args Array of field arguments.
  * @param  CMB2_Field $field      The field object.
  */
-function yourprefix_display_text_small_column( $field_args, $field ) {
+function yourprefix_display_text_small_column( $field_args, $field ) 
+{
 	?>
 	<div class="custom-column-display <?php echo esc_attr( $field->row_classes() ); ?>">
 		<p><?php echo $field->escaped_value(); ?></p>
@@ -94,7 +103,8 @@ function yourprefix_display_text_small_column( $field_args, $field ) {
  * @param  array      $field_args Array of field parameters.
  * @param  CMB2_Field $field      Field object.
  */
-function yourprefix_before_row_if_2( $field_args, $field ) {
+function yourprefix_before_row_if_2( $field_args, $field ) 
+{
 	if ( 2 == $field->object_id ) {
 		echo '<p>Testing <b>"before_row"</b> parameter (on $post_id 2)</p>';
 	} else {
@@ -168,11 +178,11 @@ function yourprefix_register_demo_metabox() {
 		// 	'position' => 2, // Set as the second column.
 		// );
 		// 'display_cb' => 'yourprefix_display_text_small_column', // Output the display of the column values through a callback.
-	) );
+	) ); 
 
 	$cmb_demo->add_field( array(
 		'name' => esc_html__( 'Test Text Medium', 'cmb2' ),
-		'desc' => esc_html__( 'field description (optional)', 'cmb2' ),
+		'desc' => esc_html__( 'hola', 'cmb2' ),
 		'id'   => 'yourprefix_demo_textmedium',
 		'type' => 'text_medium',
 	) );
@@ -467,41 +477,13 @@ function yourprefix_register_demo_metabox() {
 
 }
 
-add_action( 'cmb2_admin_init', 'yourprefix_register_about_page_metabox' );
-/**
- * Hook in and add a metabox that only appears on the 'About' page
- */
-function yourprefix_register_about_page_metabox() {
-
-	/**
-	 * Metabox to be displayed on a single page ID
-	 */
-	$cmb_about_page = new_cmb2_box( array(
-		'id'           => 'yourprefix_about_metabox',
-		'title'        => esc_html__( 'campo home page', 'cmb2' ),
-		'object_types' => array( 'page' ), // Post type
-		'context'      => 'normal',
-		'priority'     => 'high',
-		'show_names'   => true, // Show field names on the left
-		'show_on'      => array(
-			'id' => array( 2 ),
-		), // Specific post IDs to display this metabox
-	) );
-
-	$cmb_about_page->add_field( array(
-		'name' => esc_html__( 'Test Text', 'cmb2' ),
-		'desc' => esc_html__( 'field description (optional)', 'cmb2' ),
-		'id'   => 'yourprefix_about_text',
-		'type' => 'text',
-	) );
-
-}
 
 add_action( 'cmb2_admin_init', 'yourprefix_register_repeatable_group_field_metabox' );
 /**
  * Hook in and add a metabox to demonstrate repeatable grouped fields
  */
-function yourprefix_register_repeatable_group_field_metabox() {
+function yourprefix_register_repeatable_group_field_metabox()
+ {
 
 	/**
 	 * Repeatable Field Groups
@@ -516,7 +498,7 @@ function yourprefix_register_repeatable_group_field_metabox() {
 	$group_field_id = $cmb_group->add_field( array(
 		'id'          => 'yourprefix_group_demo',
 		'type'        => 'group',
-		'description' => esc_html__( 'Generates reusable form entries', 'cmb2' ),
+		'description' => esc_html__( 'hola kervis', 'cmb2' ),
 		'options'     => array(
 			'group_title'    => esc_html__( 'Entry {#}', 'cmb2' ), // {#} gets replaced by row number
 			'add_button'     => esc_html__( 'Add Another Entry', 'cmb2' ),
@@ -565,7 +547,8 @@ add_action( 'cmb2_admin_init', 'yourprefix_register_user_profile_metabox' );
 /**
  * Hook in and add a metabox to add fields to the user profile pages
  */
-function yourprefix_register_user_profile_metabox() {
+function yourprefix_register_user_profile_metabox()
+ {
 
 	/**
 	 * Metabox for the user profile screen
@@ -634,7 +617,8 @@ add_action( 'cmb2_admin_init', 'yourprefix_register_taxonomy_metabox' );
 /**
  * Hook in and add a metabox to add fields to taxonomy terms
  */
-function yourprefix_register_taxonomy_metabox() {
+function yourprefix_register_taxonomy_metabox() 
+{
 
 	/**
 	 * Metabox to add fields to categories and tags
@@ -675,7 +659,8 @@ add_action( 'cmb2_admin_init', 'yourprefix_register_theme_options_metabox' );
 /**
  * Hook in and register a metabox to handle a theme options page and adds a menu item.
  */
-function yourprefix_register_theme_options_metabox() {
+function yourprefix_register_theme_options_metabox() 
+{
 
 	/**
 	 * Registers options page menu item and form.
@@ -743,7 +728,8 @@ function yourprefix_register_theme_options_metabox() {
  *                                   Will be 'updated' if $is_updated is true, else 'notice-warning'.
  * }
  */
-function yourprefix_options_page_message_callback( $cmb, $args ) {
+function yourprefix_options_page_message_callback( $cmb, $args ) 
+{
 	if ( ! empty( $args['should_notify'] ) ) {
 
 		if ( $args['is_updated'] ) {
@@ -765,7 +751,8 @@ function yourprefix_options_page_message_callback( $cmb, $args ) {
  *
  * @return bool                 Whether this box and its fields are allowed to be viewed.
  */
-function yourprefix_limit_rest_view_to_logged_in_users( $is_allowed, $cmb_controller ) {
+function yourprefix_limit_rest_view_to_logged_in_users( $is_allowed, $cmb_controller ) 
+{
 	if ( ! is_user_logged_in() ) {
 		$is_allowed = false;
 	}
@@ -778,7 +765,8 @@ add_action( 'cmb2_init', 'yourprefix_register_rest_api_box' );
  * Hook in and add a box to be available in the CMB2 REST API. Can only happen on the 'cmb2_init' hook.
  * More info: https://github.com/CMB2/CMB2/wiki/REST-API
  */
-function yourprefix_register_rest_api_box() {
+function yourprefix_register_rest_api_box()
+ {
 	$cmb_rest = new_cmb2_box( array(
 		'id'            => 'yourprefix_rest_metabox',
 		'title'         => esc_html__( 'REST Test Box', 'cmb2' ),
@@ -804,3 +792,8 @@ function yourprefix_register_rest_api_box() {
 		'show_in_rest' => WP_REST_Server::EDITABLE,// WP_REST_Server::ALLMETHODS|WP_REST_Server::READABLE, // Determines which HTTP methods the field is visible in. Will override the cmb2_box 'show_in_rest' param.
 	) );
 }
+
+
+
+
+

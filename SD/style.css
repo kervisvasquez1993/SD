@@ -160,10 +160,14 @@ aside .inverso::after {
 .nav-link:hover {
     color: #f46669;
 }
-.nav-link.active {
-    color: #f46669;
+
+.current_page_item,
+.current_page_item .nav-link {
+    color: #f46669 !important;
     border-bottom: 2px solid #f46669;
+
 }
+
 .copyright {
     font-weight: 700;
     font-size: 1rem;
@@ -174,15 +178,7 @@ aside .inverso::after {
     height: 24rem;
     background-size: cover;
 }
-.nosotros-bg {
-    background-image: url(../img/principal1.jpg);
-}
-.clase-bg {
-    background-image: url(../img/clase1.jpg);
-}
-.contacto-bg {
-    background-image: url(../img/principal2.jpg);
-}
+
 
 /** Nosotros **/
 .contenido-nosotros {
@@ -248,4 +244,57 @@ aside .card-footer a{
 .kervis-menu li a {
     font-size: 25px;
     font-weight: bold;
+}
+
+/*
+    comentarios
+*/
+
+.comment-respond a {
+   color : pink; 
+}
+.comment-body{
+    background:  #c7c57d;
+    padding: 1rem;
+    margin-bottom: 1rem;
+
+}
+.comment-body a{
+    color: black
+}
+.comment-body a:hover{
+    color: blue;
+}
+.comment-reply-title{
+    text-align: center;
+}
+.comment-form-comment label {
+    width: 100%;
+    font-weight: bold;
+}
+.comment-form-comment textarea{
+    width: 100%;
+}
+.comment-respond .submit {
+    background: #dc4747;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    padding:  .5rem;
+    transition: background-color .3s ease-in;
+    width: 100%;
+     
+}
+.comment-respond .submit:hover{
+    background: #dc4747;
+    cursor: pointer;
+}
+#respond form > p {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+#respond form > p label {
+    flex: 1 ;
 }
