@@ -171,40 +171,79 @@ function kervis_blog()
 
 	$campos_blog->add_field( array(
 		'name' => esc_html__( 'Slogan Blog', 'cmb2' ),
-		'desc' => esc_html__( 'Añada un una descripcion de la pagina webn', 'cmb2' ),
+		'desc' => esc_html__( 'Añada un una descripcion de la pagina web', 'cmb2' ),
 		'id'   => 'slogan_blog',
 		'type' => 'text',
 	) );
  }
 
  /*
- 	campos para el personal
+ 	campos para el portafolio
  */
 
 
-add_action( 'cmb2_admin_init', 'kervis_personal' );
+add_action( 'cmb2_admin_init', 'portafolio' );
 /**
  * Hook in and add a metabox that only appears on the 'About' page
  */
-function kervis_personal()
+function portafolio()
  {
 	 
 	
-	$personal_entradas = new_cmb2_box( array(
-		'id'           => 'personal',
+	$portafolio = new_cmb2_box( array(
+		'id'           => 'portafolio',
 		'title'        => esc_html__( 'Campos de Persoanl', 'cmb2' ),
-		'object_types' => array( 'persoanl' ), // Post type
+		'object_types' => array( 'portafolio2' ), // Post type
 		'context'      => 'normal',
 		'priority'     => 'high',
 		'show_names'   => true, // Show field names on the left
 		
 	) );
 
-	$personal_entradas->add_field( array(
+	$portafolio->add_field( array(
 		'name' => esc_html__( 'subtitulo de la entrada', 'cmb2' ),
 		'desc' => esc_html__( 'Añada un subtitulo para el curso', 'cmb2' ),
-		'id'   => 'personal_subtitulo',
+		'id'   => 'portafolio_subtitulo',
 		'type' => 'text',
 	) );
+	$portafolio->add_field( array(
+		'name' => esc_html__( 'Informacion sobre fecha ', 'cmb2' ),
+		'desc' => esc_html__( 'Informacion sobre la fecha y hora', 'cmb2' ),
+		'id'   => 'info',
+		'type' => 'title',
+	) );
+
+	//horas y dias 
+	$portafolio->add_field( array(
+		'name' => esc_html__( 'Indicaciones para los dias', 'cmb2' ),
+		'desc' => esc_html__( 'Añada las indicaciones de los dias', 'cmb2' ),
+		'id'   => 'indicaciones',
+		'type' => 'text_date',
+	) );
+
+	$portafolio->add_field( array(
+		'name' => esc_html__( 'Precio', 'cmb2' ),
+		'desc' => esc_html__( 'Precio del curso', 'cmb2' ),
+		'id'   => 'precio',
+		'type' => 'text_money',
+		// 'before_field' => '£', // override '$' symbol if needed
+		// 'repeatable' => true,
+	) );
+	
+	$portafolio->add_field( array(
+		'name' => esc_html__( 'Personal de la pagina', 'cmb2' ),
+		'desc' => esc_html__( 'Seleccione el la personal ', 'cmb2' ),
+		'id' => 'personal',
+		'type' => 'post_search_ajax',
+		'query_args' => array(
+			'post_type' => array('personal'),
+			'post_status' =>array('publish'),
+			'post_per_page' => -1
+		)
+	)
+	);
+	
 
  }
+
+ //campos para entradas

@@ -1,10 +1,11 @@
 <?php get_header(); ?>
-<div class="container">
-        <div class="row imagen-destacada clase-bg"></div>
-    </div>
 
-    <main class="container">
-        <div class="row justify-content-center">
+<?php 
+    while(have_posts()): the_post();
+
+        get_template_part('template-parts/contenido', 'post');?>
+<div class="container">
+<div class="row justify-content-center">
             <div class="col-md-8 bg-white contenido-nosotros py-3 px-5">
                 <h2 class="separador text-center my-5">Comida Italiana para principiantes</h2>
 
@@ -37,6 +38,10 @@
             </div>
             <div class="col-md-6 text-center">
                 <h2 class="separador text-center mt-5 my-md-3">Imparte</h2>
+                <?php $args = array(
+                    'post_type' => 'personal',
+                    'post__in'
+                );?>
 
                 <img src="img/instructor.jpg" class="img-fluid rounded-circle mb-4 ">
                 <p class="instructor">Isabelle De la torre </p>
@@ -45,12 +50,6 @@
                 </p>
             </div>
         </div>
-
-
-    </main>
-
-
-
-
-º
-<?php get_footer();?>
+        </div>
+    <?php endwhile?>
+<?php get_footer(); ?>

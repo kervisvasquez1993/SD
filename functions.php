@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 
 
 require_once dirname( __FILE__ ).'/cmb2.php';
 require_once dirname( __FILE__ ).'/inc/custom-fields.php';
 require_once dirname( __FILE__ ).'/inc/posttype.php';
+require_once dirname( __FILE__ ).'/inc/queries.php';
 
 /**
  * imagenes descatacas para calquiera
@@ -86,5 +87,15 @@ wp_enqueue_script('scripts', get_template_directory_uri().'/js/scripts.js',array
 
 add_action('wp_enqueue_scripts','style');
 
+}
+
+/** 
+ * agragamos campos para mostar el mensaje personalizado */
+
+ add_filter( 'display_post_states', 'cambiar_estado1',10,2 );
+function cambiar_estado1($estado, $post){
+    if(('page' === get_post_type($post->ID)) && ('page-portafolio2.php' == get_page_template_slug($post->ID)))
+    $state[] = __('Pagina para el portafolio2 <a href="post-new.php?post_type=portafolio2"> Agregar nuevo pagina para el portafolio2</a>');
+    return $state;
 }
 
