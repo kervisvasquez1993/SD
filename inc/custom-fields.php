@@ -232,7 +232,7 @@ function portafolio()
 	
 	$portafolio->add_field( array(
 		'name' => esc_html__( 'Personal de la pagina', 'cmb2' ),
-		'desc' => esc_html__( 'Seleccione el la personal ', 'cmb2' ),
+		'desc' => esc_html__( 'Seleccione a la persona', 'cmb2' ),
 		'id' => 'personal',
 		'type' => 'post_search_ajax',
 		'query_args' => array(
@@ -247,3 +247,34 @@ function portafolio()
  }
 
  //campos para entradas
+
+
+ // galeria 
+
+
+ add_action( 'cmb2_admin_init', 'galeria' );
+/**
+ * Hook in and add a metabox that only appears on the 'About' page
+ */
+function galeria()
+ {
+	 
+	$galeria = new_cmb2_box( array(
+		'id'           => 'Galeria',
+		'title'        => 'Galeria',
+		'object_types' => array( 'page' ), // post type
+		'show_on'      => array( 'key' => 'page-template', 'value' => 'page-galeria.php' ),
+		'context'      => 'normal', //  'normal', 'advanced', or 'side'
+		'priority'     => 'high',  //  'high', 'core', 'default' or 'low'
+		'show_names'   => true, // Show field names on the left
+	) );
+
+    $galeria->add_field( array(
+				'name'         => esc_html__( 'Selecciona las imagenes', 'cmb2' ),
+				'desc'         => esc_html__( 'Upload or add multiple images/attachments.', 'cmb2' ),
+				'id'           => 'galeria',
+				'type'         => 'file_list',
+				'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+							) );
+ 
+}
