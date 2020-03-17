@@ -11,7 +11,7 @@ class Foo_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct(
             'foo_widget', // Base ID
-            'Portafolio', // Name
+            'kervis', // Name
             array( 'description' => __( 'A Foo Widget', 'text_domain' ), ) // Args
         );
     }
@@ -25,20 +25,19 @@ class Foo_Widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
-        echo $args['before_widget'];
-        if(!empty($instace['title']))
-        {
-            echo $args['before_title'].apply_filters( 'widget_title', $instace['title'] ).$args
-            ['after_title'];
+        extract( $args );
+        $title = apply_filters( 'widget_title', $instance['title'] );
+        $cantidad = apply_filters( 'widget_title', $instance['cantidad'] );
+ 
+        echo $before_widget;
+        if ( ! empty( $title ) ) {
+            echo $before_title . $title . $after_title;
         }
-        if(!empty($instace['cantidad']))
-        {
-            echo $args['before_cantidad'];
-        }
-
-        $arg= array(
+       
+        
+       $arg= array(
             'post_type' => 'portafolio2',
-            'posts_per_page' => 2
+            'posts_per_page' => $cantidad
         );
         $portafolio = new WP_Query($arg);
         while($portafolio->have_posts()): $portafolio->the_post();
@@ -57,13 +56,10 @@ class Foo_Widget extends WP_Widget {
 
 
       <?php 
-      endwhile; wp_reset_postdata();    
-
-
-
+      endwhile; wp_reset_postdata();  
         echo $after_widget;
     }
- 
+    
     /**
      * Back-end widget form.
      *
@@ -72,19 +68,17 @@ class Foo_Widget extends WP_Widget {
      * @param array $instance Previously saved values from database.
      */
     public function form( $instance ) {
-        $title = !empty($instance['title']) ? $instace['title'] :  esc_html( 'Titulo del Widgeth' , 'text_domain' );
-        $cantidad = !empty($instance['cantidad']) ? $instace['cantidad'] :  esc_html( '¿Cuantas entras mostraras ?' , 'text_domain' );?>
-        
+        $title = !empty($instance['title']) ? $instance['title'] : esc_html__( 'kervis ', 'text_domain');
+
+        $cantidad = !empty($instance['cantidad']) ? $instance['cantidad'] : esc_html__( '¿Cuantos cursos desea mostrar?', 'text_domain');
+                
+        ?>
         <p>
-            <label for="<?php echo $this->get_field_name( 'title' ); ?>">
-                <?php _e( 'Title:' ); ?>
-            </label>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+            <label for="<?php echo $this->get_field_name( 'title' ); ?>"><?php _e( 'Ingrese un titulo:' ); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'Ingrese un titulo' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
          </p>
          <p>
-            <label for="<?php echo $this->get_field_name( 'cantidad' ); ?>">
-                <?php _e( 'cantidad:' ); ?>
-            </label>
+            <label for="<?php echo $this->get_field_name( 'cantidad' ); ?>"><?php esc_attr_e( 'Ingrese la cantidad:' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'cantidad' ); ?>" name="<?php echo $this->get_field_name( 'cantidad' ); ?>" type="text" value="<?php echo esc_attr( $cantidad ); ?>" />
          </p>
     <?php
@@ -102,15 +96,17 @@ class Foo_Widget extends WP_Widget {
      */
     public function update( $new_instance, $old_instance ) {
         $instance = array();
-        $instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-        $instance['cantidad'] = ( !empty( $new_instance['cantidad'] ) ) ? strip_tags( $new_instance['cantidad'] ) : '';
- 
+        
+        $instance['cantidad'] = ( !empty( $new_instance['cantidad'] ) ) ?  sanitize_text_field( $new_instance['cantidad'] ) : '';
+        $instance['title'] = ( !empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : 'Últimos proyectos';
         return $instance;
     }
  
 } // class Foo_Widget
  
+?>
 
+<?php
 // Register Foo_Widget widget
 add_action( 'widgets_init', 'register_foo' );
      
