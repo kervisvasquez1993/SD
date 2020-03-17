@@ -654,7 +654,7 @@ function yourprefix_register_taxonomy_metabox()
 	) );
 
 }
-
+return;
 add_action( 'cmb2_admin_init', 'yourprefix_register_theme_options_metabox' );
 /**
  * Hook in and register a metabox to handle a theme options page and adds a menu item.

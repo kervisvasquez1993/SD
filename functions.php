@@ -7,6 +7,7 @@ require_once dirname( __FILE__ ).'/inc/custom-fields.php';
 require_once dirname( __FILE__ ).'/inc/posttype.php';
 require_once dirname( __FILE__ ).'/inc/queries.php';
 require_once dirname( __FILE__ ).'/inc/widgets.php';
+require_once dirname( __FILE__ ).'/inc/opciones.php';
 
 /**
  * imagenes descatacas para calquiera
