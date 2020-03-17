@@ -6,6 +6,7 @@ require_once dirname( __FILE__ ).'/cmb2.php';
 require_once dirname( __FILE__ ).'/inc/custom-fields.php';
 require_once dirname( __FILE__ ).'/inc/posttype.php';
 require_once dirname( __FILE__ ).'/inc/queries.php';
+require_once dirname( __FILE__ ).'/inc/widgets.php';
 
 /**
  * imagenes descatacas para calquiera
@@ -81,7 +82,7 @@ wp_enqueue_style('style',get_stylesheet_uri());
 wp_enqueue_script('jquery');
 wp_enqueue_script('popper','https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', array('jquery'),'4.2.3',true);
 wp_enqueue_script('bootstrap-js','https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js', array('popper'),'4.2.3', true);
-wp_enqueue_script('scripts', get_template_directory_uri().'/js/scripts.js',array(),'1.0.0', true);
+wp_enqueue_script('scripts', get_template_directory_uri().'/js/scripts.js',array('bootstrap-js'),'1.0.0', true);
 
 }
 
@@ -97,5 +98,18 @@ function cambiar_estado1($estado, $post){
     if(('page' === get_post_type($post->ID)) && ('page-portafolio2.php' == get_page_template_slug($post->ID)))
     $state[] = __('Pagina para el portafolio2 <a href="post-new.php?post_type=portafolio2"> Agregar nuevo pagina para el portafolio2</a>');
     return $state;
+}
+
+add_action( 'widgets_init', 'widgets_sidebar' );
+function widgets_sidebar(){
+    register_sidebar(array(
+        'name' => 'widgets Lateral',
+        'id' => 'sidebar_widget',
+        'before_widget' => '<div class"widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h2 class="text-center text-ligth separador inverso">',
+        'after_title' => '</h2>'
+
+    ));
 }
 
